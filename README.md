@@ -59,6 +59,8 @@ A sample gameplay recording generated after training is available at:
 
 `videos/pacman.mp4`
 
+## Project Structure
+```
 DQN-Pacman/
 ├── notebooks/ # Training and ablation notebooks
 ├── models/ # Saved model weights
@@ -66,7 +68,7 @@ DQN-Pacman/
 ├── images/ # Training plots
 ├── data/ # Stored metrics
 └── README.md
-
+```
 
 ## Technologies Used
 

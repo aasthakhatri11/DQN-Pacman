@@ -38,6 +38,19 @@ Peak rewards during training reached approximately 150–190, indicating that th
 ### Loss Curve
 ![Loss Curve](images/loss_curve.png)
 
+## Final Evaluation
+
+The trained agent was evaluated over 10 episodes using a fully greedy policy (no exploration).
+
+- Environment: ALE/MsPacman-v5  
+- Frame stacking: 4  
+- Average score (10 episodes): ~120–150  
+- Best episode score: ~180–190  
+
+These results indicate that the agent has learned basic navigation and reward collection strategies, although performance remains limited due to reduced training time.
+
+Performance remains variable across episodes, reflecting the stochastic nature of the environment and the limited training duration.
+
 ## Ablation Study
 
 To better understand the importance of temporal information, an ablation study was conducted comparing:

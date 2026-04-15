@@ -1,5 +1,7 @@
 # Deep Q Network for Atari MsPacman
 
+Tested on Google Colab.
+
 This project implements a Deep Q Network (DQN) agent to play Atari MsPacman using PyTorch. The agent learns directly from raw pixel input and improves its performance through interaction with the environment.
 
 ## Overview

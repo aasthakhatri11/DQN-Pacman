@@ -70,12 +70,12 @@ The agent demonstrates clear learning progression over time.
 * Late Average Reward: 613.0
 * Improvement: 54.21%
 
-This indicates that the agent successfully learned better policies during training.
+This indicates that the agent successfully learned improved policies over the course of training.
 
 ### Training Behavior
 
 * Early episodes show random and exploratory behavior
-* Mid-training introduces high-reward trajectories
+* * Mid-training shows occasional high-reward trajectories
 * Later episodes show improved reward trends, though performance remains variable
 
 Peak episode scores exceeded **1400**, indicating that the agent learned non-trivial navigation and reward collection strategies.
@@ -92,7 +92,7 @@ Peak episode scores exceeded **1400**, indicating that the agent learned non-tri
 
 ### Q-Value Evolution
 
-![Q Values](images/q_values.png)
+![Q Values](images/q_value.png)
 
 ## Final Evaluation
 

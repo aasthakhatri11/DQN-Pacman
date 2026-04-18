@@ -118,19 +118,19 @@ The relatively small improvement is likely due to:
 
 ### Training Performance
 
-![Reward Curve](results/training/reward_curve.png)
+![Reward Curve](./results/training/reward_curve.png)
 
-![Loss Curve](results/training/loss_curve.png)
+![Loss Curve](./results/training/loss_curve.png)
 
-![Q-Value Evolution](results/training/q_value.png)
+![Q-Value Evolution](./results/training/q_value.png)
 
 ---
 
 ### Ablation Study (Frame Stacking)
 
-![Raw Reward Comparison](results/ablation/avg_rewards.png)
+![Raw Reward Comparison](./results/ablation/avg_rewards.png)
 
-![Smoothed Reward Comparison](results/ablation/smoothed_rewards.png)
+![Smoothed Reward Comparison](./results/ablation/smoothed_rewards.png)
 ---
 
 ## Gameplay

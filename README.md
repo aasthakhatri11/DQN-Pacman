@@ -120,6 +120,8 @@ The relatively small improvement is likely due to:
 
 ![Reward Curve](./results/training/reward_curve.png)
 
+![Test](./results/training/reward_curve.png)
+
 ![Loss Curve](./results/training/loss_curve.png)
 
 ![Q-Value Evolution](./results/training/q_value.png)

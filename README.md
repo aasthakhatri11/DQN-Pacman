@@ -36,7 +36,9 @@ A Deep Q-Network (DQN) agent trained from raw pixel input to play Ms. Pac-Man us
 * Input Resolution: 64×64
 
 **Key Insight**
+
 The agent transitions from random exploration to structured reward-seeking behavior, achieving high-reward trajectories (>1000 score). However, performance variance remains high due to limited training duration.
+
 ---
 
 ## Training Performance

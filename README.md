@@ -1,6 +1,8 @@
 # Deep Q-Network for Atari Ms. Pac-Man
 
-![Gameplay](videos/pacman.gif)
+<p align="center">
+  <img src="videos/pacman.gif" width="350">
+</p>
 
 A Deep Q-Network (DQN) agent trained from raw pixel input to play Ms. Pac-Man using PyTorch, achieving consistent reward improvement and high-scoring trajectories under limited training.
 
@@ -155,7 +157,11 @@ The implementation follows the standard DQN framework:
 
 **▶ Click the GIF below to watch the full gameplay video**
 
-[![Gameplay](videos/pacman.gif)](videos/pacman.mp4)
+<p align="center">
+  <a href="videos/pacman.mp4">
+    <img src="videos/pacman.gif" width="350">
+  </a>
+</p>
 
 ---
 

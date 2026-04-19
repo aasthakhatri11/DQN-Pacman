@@ -153,9 +153,9 @@ The implementation follows the standard DQN framework:
 
 ## Gameplay
 
-Full gameplay (best episode):
+**▶ Click the GIF below to watch the full gameplay video**
 
-[![Watch Gameplay](videos/pacman.gif)](videos/pacman.mp4)
+[![Gameplay](videos/pacman.gif)](videos/pacman.mp4)
 
 ---
 

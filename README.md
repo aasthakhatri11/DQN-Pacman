@@ -137,6 +137,46 @@ The implementation follows the standard DQN framework:
 
 ---
 
+## Reproducibility
+
+To reproduce the results:
+
+### 1. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run training
+
+Open and run:
+
+* `notebooks/dqn_training.ipynb`
+
+This will:
+
+* Train the DQN agent
+* Save model weights to `models/dqn_pacman.pth`
+* Generate training curves in `results/training/`
+
+### 3. Run ablation study
+
+Open and run:
+
+* `notebooks/dqn_ablation_frame_stacking.ipynb`
+
+This will:
+
+* Compare single-frame vs 4-frame input
+* Generate plots in `results/ablation/`
+
+### Notes
+
+* Training was performed on Google Colab (GPU) under limited runtime constraints
+* Results may vary slightly due to stochasticity in the environment
+
+---
+
 ## Challenges & Fixes
 
 **Challenges**

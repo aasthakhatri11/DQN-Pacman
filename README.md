@@ -1,18 +1,105 @@
 # Deep Q-Network for Atari Ms. Pac-Man
 
-This project implements a Deep Q-Network (DQN) agent to play Atari Ms. Pac-Man using PyTorch. The agent learns directly from visual input and improves its performance through interaction with the environment.
+![Gameplay](videos/pacman.gif)
 
-In addition to training a baseline agent, this project includes an ablation study to evaluate the role of temporal information via frame stacking.
+A Deep Q-Network (DQN) agent trained from raw pixel input to play Ms. Pac-Man using PyTorch, achieving consistent reward improvement and high-scoring trajectories under limited training.
 
 ---
 
-## Overview
+## Key Highlights
 
-The goal is to train an agent that can navigate the Ms. Pac-Man environment, collect rewards, and avoid negative outcomes. The model processes raw pixel input using a convolutional neural network and learns action-value estimates through reinforcement learning.
+* Learned directly from raw pixel input (no handcrafted features)
+* Achieved ~54% improvement in average reward (**late vs early training**)
+* Evaluation performance reaches **500–700 average score**
+* Best episode exceeds **1400+ score**
+* Includes ablation study on frame stacking (temporal information)
 
-The project focuses on:
-- training a DQN agent under limited computational resources  
-- analyzing the importance of temporal context in decision-making  
+---
+
+## Results Summary
+
+**Training Performance**
+
+* Early Training Avg Reward → low (random behavior)
+* Late Training Avg Reward → significantly improved
+* Relative Improvement → **~54% (late vs early training)**
+
+**Evaluation (20 Episodes, Greedy Policy)**
+
+* Average Score → **~500–700**
+* Best Episode → **~1400+**
+
+**Training Setup**
+
+* Environment: ALE/MsPacman-v5
+* Frame Stack: 4
+* Input Resolution: 64×64
+
+**Key Insight**
+The agent transitions from random exploration to structured reward-seeking behavior, though performance remains noisy due to limited training.
+
+---
+
+## Training Performance
+
+### Reward Curve
+
+![Reward Curve](./results/training/reward_curve.png)
+
+* Clear upward trend showing learning progression
+* High variance due to stochastic environment and limited training
+* Later episodes show emergence of consistent reward patterns
+
+---
+
+### Loss Curve
+
+![Loss Curve](./results/training/loss_curve.png)
+
+* Loss stabilizes over time
+* Indicates improving Q-value estimation and reduced training instability
+
+---
+
+### Q-Value Evolution
+
+![Q Value Curve](./results/training/q_value_curve.png)
+
+* Increasing Q-values reflect improved value estimation
+* Stabilization suggests learning progression and policy refinement
+
+---
+
+## Ablation Study: Frame Stacking
+
+To evaluate the importance of temporal information, an ablation study was conducted by removing frame stacking while keeping all other components fixed.
+
+### Results
+
+* No Frame Stacking → Mean = 17.45, Std = 3.70
+* 4-Frame Stacking → Mean = 18.32, Std = 3.56
+* Improvement → **+0.87**
+
+---
+
+### Raw Reward Comparison
+
+![Ablation Raw](./results/ablation/avg_rewards.png)
+
+---
+
+### Smoothed Reward Comparison
+
+![Ablation Smooth](./results/ablation/smoothed_rewards.png)
+
+---
+
+### Analysis
+
+* Frame stacking improves learning stability
+* Provides temporal context for movement prediction
+* Without stacking, the agent struggles to infer motion from static frames
+* Improvement is modest due to limited training duration
 
 ---
 
@@ -20,124 +107,56 @@ The project focuses on:
 
 The implementation follows the standard DQN framework:
 
-- Convolutional Neural Network for Q-value approximation  
-- Experience Replay to reduce correlation between samples  
-- Target Network for training stability  
-- Epsilon-greedy exploration  
-- Gradient clipping for stable updates  
+* Convolutional Neural Network for Q-value approximation
+* Experience Replay
+* Target Network
+* Epsilon-greedy exploration
+* Reward clipping and gradient clipping
 
 ---
 
 ## State Representation
 
-Each state is constructed as:
-
-- RGB frames converted to grayscale  
-- Resized to 64 × 64  
-- Stacked across 4 frames → shape: (4, 64, 64)  
-
-Frame stacking allows the agent to capture motion and environment dynamics.
+* RGB frames → grayscale
+* Resized to 64 × 64
+* 4-frame stack → captures temporal dynamics
 
 ---
 
-## Training
+## Training Details
 
-The agent was trained using Google Colab under constrained resources.
-
-**Key settings:**
-
-- Episodes: 50–100  
-- Replay Buffer Size: 10,000  
-- Batch Size: 16  
-- Discount Factor (γ): 0.99  
-- Learning Frequency: every 4 steps  
-- Reward Clipping: sign(reward)  
-
-**Exploration:**
-
-- Initial ε = 1.0  
-- Final ε ≈ 0.05  
-- Linear decay during training  
+* Episodes: up to 300
+* Replay Buffer Size: 10,000
+* Batch Size: 16
+* Discount Factor (γ): 0.99
+* Learning Frequency: every 4 steps
+* Exploration: ε-decay from 1.0 → ~0.05
 
 ---
 
-## Results (Baseline Training)
+## Challenges & Fixes
 
-The agent demonstrates gradual learning:
+**Challenges**
 
-- Early episodes show random exploration  
-- Mid-training shows occasional high-reward trajectories  
-- Later episodes show improved reward trends  
+* Q-value divergence during training
+* High variance in episodic rewards
+* Slow convergence under compute constraints
 
-Performance remains somewhat noisy due to limited training duration.
+**Fixes**
 
----
+* Tuned epsilon decay schedule
+* Adjusted target network update frequency
+* Applied reward clipping and gradient clipping
 
-## Ablation Study: Frame Stacking
-
-To understand the importance of temporal information, an ablation study was conducted by removing frame stacking while keeping all other components fixed.
-
-### Experimental Setup
-
-Two configurations were compared:
-
-- Single-frame input (no temporal context)  
-- 4-frame stacked input (temporal context)  
-
-Both models were trained independently under identical settings.
-
----
-
-### Results
-
-- No Frame Stacking: Mean = 17.45, Std = 3.70  
-- 4-Frame Stacking: Mean = 18.32, Std = 3.56  
-- Improvement: +0.87  
-
-Frame stacking leads to a consistent but modest improvement in performance.
-
----
-
-### Analysis
-
-The stacked model achieves slightly higher rewards and more stable learning behavior. Temporal information helps the agent better capture movement dynamics, leading to more consistent decisions.
-
-Without frame stacking, the agent struggles to:
-- infer motion from static observations  
-- maintain stable movement patterns  
-- learn consistent policies  
-
-The relatively small improvement is likely due to:
-- short training duration  
-- reduced model capacity  
-- computational constraints  
-
----
-
-## Visualizations
-
-### Training Performance
-
-![Reward Curve](./results/training/reward_curve.png)
-
-![Loss Curve](./results/training/loss_curve.png)
-
-![Q-Value Evolution](./results/training/q_value_curve.png)
-
----
-
-### Ablation Study (Frame Stacking)
-
-![Raw Reward Comparison](./results/ablation/avg_rewards.png)
-
-![Smoothed Reward Comparison](./results/ablation/smoothed_rewards.png)
 ---
 
 ## Gameplay
 
 A sample gameplay recording of the trained agent:
 
-- `videos/pacman.mp4`
+![Gameplay](videos/pacman.gif)
+
+Full video available at: `videos/pacman.mp4`
 
 ---
 
@@ -146,57 +165,41 @@ A sample gameplay recording of the trained agent:
 ```
 DQN-Pacman/
 ├── notebooks/
-│   ├── dqn_training.ipynb                  # Main DQN training
-│   └── dqn_ablation_frame_stacking.ipynb   # Ablation study
-│
 ├── models/
-│   └── dqn_pacman.pth
-│
 ├── results/
 │   ├── training/
-│   │   ├── reward_curve.png
-│   │   └── q_value.png
-│   │
 │   └── ablation/
-│       ├── avg_rewards.png
-│       └── smoothed_rewards.png
-│
 ├── videos/
-│   └── pacman.mp4
-│
 ├── data/
-│   └── episode_rewards.npy
-│
-├── README.md
-└── requirements.txt
 ```
+
 ---
 
 ## Technologies Used
 
-- Python  
-- PyTorch  
-- Gymnasium (Atari environments)  
-- OpenCV  
-- NumPy  
-- Matplotlib  
+* Python
+* PyTorch
+* Gymnasium (Atari environments)
+* OpenCV
+* NumPy
+* Matplotlib
 
 ---
 
 ## Limitations
 
-- Limited training due to compute constraints  
-- High variance in rewards  
-- Results are not fully converged  
+* Limited training due to compute constraints
+* High variance in rewards
+* Not fully converged
 
 ---
 
 ## Future Work
 
-- Double DQN  
-- Dueling Networks  
-- Prioritized Experience Replay  
-- Longer training  
+* Double DQN
+* Dueling Networks
+* Prioritized Experience Replay
+* Longer training
 
 ---
 
